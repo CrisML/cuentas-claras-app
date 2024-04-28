@@ -1,0 +1,16 @@
+{
+  "name": "cuentas-claras-app",
+  "version": "1.0.0",
+  "description": "TP - 75.44/95.24 Administración y Control de Proyectos Informáticos I",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
