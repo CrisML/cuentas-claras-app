@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { config } from '../../utils/config';
 
 interface AuthState {
     isLoggedIn: boolean;
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoginError(null);
 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(`${config.apiUrl}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

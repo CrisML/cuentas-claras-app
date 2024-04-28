@@ -1,4 +1,3 @@
-// components/Login.tsx
 import { useState } from 'react';
 interface LoginProps {
     onLogin: (email: string, password: string) => void;
