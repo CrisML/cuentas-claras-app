@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { config } from '../../utils/config';
+import { config } from '@/utils/config';
+import {LoginRequest, LoginResponse} from "@common/api/types";
 
 interface AuthState {
     isLoggedIn: boolean;
@@ -38,21 +39,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoginError(null);
 
         try {
+            const loginRequest: LoginRequest = { email, password };
             const response = await fetch(`${config.apiUrl}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify(loginRequest)
             });
 
             if (!response.ok) {
                 throw new Error('Login failed!');
             }
 
-            const data = await response.json();
+            const data: LoginResponse = await response.json();
             setLoginSuccess(true);
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('token', data.token as string);
         } catch (error) {
             setLoginError(new Error('Invalid email and password'));
         }
