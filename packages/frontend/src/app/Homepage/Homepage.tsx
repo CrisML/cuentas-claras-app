@@ -1,6 +1,7 @@
 import Login from "@/app/components/Login";
 import React from "react";
 import {useAuth} from "@/app/contexts/AuthContext";
+import {redirect} from "next/navigation";
 
 export function Homepage(): React.ReactElement {
     const { state, login, logout } = useAuth();
