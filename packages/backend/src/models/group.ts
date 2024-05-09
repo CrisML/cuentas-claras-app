@@ -1,3 +1,4 @@
 export default class SpendingGroup {
-    constructor(name: string){}
+    constructor(name: string){
+    }
 }
