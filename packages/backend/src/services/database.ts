@@ -6,8 +6,8 @@ import * as mongoDB from "mongodb";
 // const uri =
 // "mongodb+srv://grupo18:kcr9HdbBcsIkszGk@cluster0.rf75zii.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-const uri = 
-"mongodb://localhost:27017/?retryWrites=true&w=majority&appName=Cluster0";
+const uri =
+"mongodb+srv://grupo18:kcr9HdbBcsIkszGk@cluster0.rf75zii.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 export const collections: { spendingGroups?: mongoDB.Collection, users?: mongoDB.Collection } = {}
 
