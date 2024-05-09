@@ -1,0 +1,23 @@
+{
+    "name": "CuentasClarasApp",
+    "description": "Para compartir gastos",
+    "version": "1.0.0",
+    "private": true,
+    "main": "index.js",
+    "type": "commonjs",
+    "scripts": {
+      "start": "node backend/src/index.js"
+
+    },
+    "engines": {
+      "node": ">=16.0.0"
+    },
+    "author": "Google LLC",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.19.2",
+        "jsonwebtoken": "^9.0.2",
+        "mongodb": "^6.6.0"
+      }
+  }

@@ -5,10 +5,10 @@ import home from './routes/home';
 import cors from 'cors';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: '*',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true // Esta opción es necesaria si tu frontend necesita enviar cookies con las solicitudes
 }));
