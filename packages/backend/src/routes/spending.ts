@@ -14,8 +14,10 @@ router.get("/", async (req: Request, res: Response) => {
 
   router.post("/",async (req: Request, res: Response) => {
     try {
+        console.log('Empezando creacion de grupo')
         const newSpendingGroup = req.body as SpendingGroup;
         const result = await collections.spendingGroups?.insertOne(newSpendingGroup);
+        console.log('Se crea grupo de spendings')
         res.status(200).send(result);
     }catch(error)
     {
