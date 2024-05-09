@@ -15,7 +15,7 @@ app.use(cors({
 app.use(express.json());
 
 app.post('/api/login', login);
-app.post('/api/groups/spendings', spendings);
+app.use('/api/groups/spendings', spendings);
 app.use('/', home);
 
 app.listen(PORT, () => {
