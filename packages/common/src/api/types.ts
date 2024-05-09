@@ -3,6 +3,11 @@ export interface LoginRequest {
     password: string;
 }
 
+export interface CreateGroupRequest {
+    /*token: string;*/
+    name: string;
+}
+
 export interface LoginResponse {
     token?: string;
     message?: string;
