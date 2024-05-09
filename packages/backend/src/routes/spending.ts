@@ -7,15 +7,15 @@ const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
 
-        const filtered_spending_groups = (await collections.spendingGroups?.find({}).toArray()) as SpendingGroup[];
+        const filtered_spending_groups = (await collections.spendingGroups?.find<SpendingGroup>({}).toArray()) as SpendingGroup[];
         res.status(200).send(filtered_spending_groups);
  
   });
 
   router.post("/",async (req: Request, res: Response) => {
     try {
+        const newSpendingGroup: SpendingGroup = req.body as SpendingGroup;
         console.log('Empezando creacion de grupo')
-        const newSpendingGroup = req.body as SpendingGroup;
         const result = await collections.spendingGroups?.insertOne(newSpendingGroup);
         console.log('Se crea grupo de spendings')
         res.status(200).send(result);

@@ -1,10 +1,16 @@
 import Login from "@/app/components/Login";
 import React from "react";
 import {useAuth} from "@/app/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import Dashboard from "@/app/components/Dashboard";
+import Signup from "@/app/components/Signup";
 import {redirect} from "next/navigation";
 
 export function Homepage(): React.ReactElement {
-    const { state, login, logout } = useAuth();
+    const { state, login, logout, handleSignUp } = useAuth();
+    const [isSigningUp, setIsSigningUp] = React.useState(false);
+
+    const toggleSignUp = () => setIsSigningUp(!isSigningUp);
 
     return (
         <main className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -13,15 +19,12 @@ export function Homepage(): React.ReactElement {
                 Aplicación de control de gastos personales
             </p>
             {state.isLoggedIn ? (
-                <div>
-                    <h2>Bienvenido a tu Dashboard</h2>
-                    <button onClick={logout} className="px-4 py-2 rounded bg-red-500 text-white">
-                        Cerrar Sesión
-                    </button>
-                </div>
+                <Dashboard onLogout={logout} />
+            ) : isSigningUp ? (
+                <Signup onSignUp={handleSignUp} toggleSignUp={toggleSignUp} />
             ) : (
-                <Login onLogin={login} onSignUp={() => console.log('Sign up logic here')} />
+                <Login onLogin={login} onSignUp={toggleSignUp} />
             )}
         </main>
-    );
+     );
 }
