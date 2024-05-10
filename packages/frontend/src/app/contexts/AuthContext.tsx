@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const data: LoginResponse = await response.json();
             setLoginSuccess(true);
             localStorage.setItem('token', data.token as string);
+            localStorage.setItem('user', email);
         } catch (error) {
             setLoginError(new Error('Invalid email and password'));
         }
