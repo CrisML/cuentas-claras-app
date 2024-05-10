@@ -6,6 +6,7 @@ export interface LoginRequest {
 export interface CreateGroupRequest {
     /*token: string;*/
     name: string;
+    creator: string;
 }
 
 export interface LoginResponse {

@@ -7,7 +7,10 @@ const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
 
-        const filtered_spending_groups = (await collections.spendingGroups?.find<SpendingGroup>({}).toArray()) as SpendingGroup[];
+        // const filtered_spending_groups = (await collections.spendingGroups?.find<SpendingGroup>({}).toArray()) as SpendingGroup[];
+        // res.status(200).send(filtered_spending_groups);
+
+        const filtered_spending_groups = (await collections.spendingGroups?.find<SpendingGroup>({creator: req.query.username}).toArray()) as SpendingGroup[];
         res.status(200).send(filtered_spending_groups);
  
   });
