@@ -3,9 +3,20 @@
 import React, { useState } from "react";
 import { CreateGroupRequest } from "@common/api/types";
 import { config } from '@/utils/config';
+import NavbarItem from "../navbar-item";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function GroupCreationScreen(): React.ReactElement {
     const [groupName, setGroupName] = useState("");
+
+    const { state, login, logout } = useAuth();
+
+    const navbar: NavbarItem[] = [
+        {
+          name: "Inicio",
+          href: "/",
+        } as NavbarItem
+    ];
 
     const handleGroupNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGroupName(event.target.value);
@@ -40,6 +51,15 @@ export default function GroupCreationScreen(): React.ReactElement {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <nav className="flex flex-col">
+                <ul>
+                    {navbar.map((item, index) => (
+                    <li key={index}>
+                        <a href={item.href}>{item.name}</a>
+                    </li>
+                    ))}
+                </ul>
+            </nav>
             <h2 className="text-3xl font-bold">Crear Grupo</h2>
             <input
                 type="text"

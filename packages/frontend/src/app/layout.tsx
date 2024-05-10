@@ -16,29 +16,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navbar: NavbarItem[] = [
-    {
-      name: "Inicio",
-      href: "/",
-    } as NavbarItem,
-    {
-      name: "Crear Grupo",
-      href: "/group",
-    } as NavbarItem,
-  ];
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
-          <ul>
-            {navbar.map((item, index) => (
-              <li key={index}>
-                <a href={item.href}>{item.name}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
         <main>{children}</main>
         <Suspense></Suspense>
       </body>
