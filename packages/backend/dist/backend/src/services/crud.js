@@ -1,6 +1,4 @@
 "use strict";
-<<<<<<< HEAD
-=======
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveSpendingGroup = exports.getSpendingGroups = exports.getSpendingGroupById = void 0;
 const database_1 = require("../services/database");
@@ -19,4 +17,3 @@ const saveSpendingGroup = async (newSpendingGroup) => {
     return await database_1.spendingGroupsCollection.insertOne(newSpendingGroup);
 };
 exports.saveSpendingGroup = saveSpendingGroup;
->>>>>>> main

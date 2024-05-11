@@ -12,6 +12,7 @@ interface AuthContextType {
     state: AuthState;
     login: (email: string, password: string) => void;
     logout: () => void;
+    handleSignUp: (email: string, password: string) => void;
 }
 
 const initialState: AuthState = {
@@ -23,7 +24,8 @@ const initialState: AuthState = {
 export const AuthContext = createContext<AuthContextType>({
     state: initialState,
     login: () => {},
-    logout: () => {}
+    logout: () => {},
+    handleSignUp: () => {}
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -65,6 +67,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setState({...initialState});
     };
 
+    const handleSignUp = async (email: string, password: string) => {
+        try {
+            const signUpRequest = { email, password };
+            const response = await fetch(`${config.apiUrl}/api/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signUpRequest)
+            });
+
+            if (!response.ok) {
+                throw new Error('Signup failed!');
+            }
+
+            const data = await response.json();
+            setLoginSuccess(true);
+            localStorage.setItem('token', data.token as string);
+        } catch (error) {
+            setLoginError(new Error('Failed to sign up'));
+        }
+    };
+
     // Attempt to re-authenticate with the token from local storage on app load
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -74,7 +99,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ state, login, logout }}>
+        <AuthContext.Provider value={{ state, login, logout, handleSignUp }}>
             {children}
         </AuthContext.Provider>
     );
