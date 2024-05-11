@@ -1,8 +1,5 @@
+"use strict";
 // export default class SpendingGroup {
 //     constructor(name: string){}
 // }
-
-export interface SpendingGroup {
-    id: string
-    name: string;
-  }
+Object.defineProperty(exports, "__esModule", { value: true });
