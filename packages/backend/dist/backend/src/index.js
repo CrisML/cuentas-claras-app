@@ -9,16 +9,34 @@ const spending_1 = __importDefault(require("./routes/spending"));
 const home_1 = __importDefault(require("./routes/home"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
+<<<<<<< HEAD
 const PORT = process.env.PORT || 3000;
 app.use((0, cors_1.default)({
     origin: '*',
+=======
+const PORT = 3000;
+// Config
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3001',
+>>>>>>> main
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true // Esta opción es necesaria si tu frontend necesita enviar cookies con las solicitudes
 }));
 app.use(express_1.default.json());
+<<<<<<< HEAD
 app.post('/api/login', login_1.login);
 app.use('/api/groups/spendings', spending_1.default);
 app.use('/', home_1.default);
+=======
+// Routes
+app.post('/api/login', login_1.login);
+app.use('/api/groups/spendings', spending_1.default);
+app.use('/', home_1.default);
+// Errors
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).send({ details: err.message });
+});
+>>>>>>> main
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
