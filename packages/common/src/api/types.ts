@@ -22,3 +22,7 @@ export interface SignupResponse {
     token?: string;
     message?: string;
 }
+
+export interface SpendingGroup {
+    name: string
+}
