@@ -1,7 +1,7 @@
 const express = require('express')
 import { Request, Response, NextFunction } from 'express';
 import * as crud from "../services/crud"
-import {SpendingGroup} from "@common/api/types";
+import {GroupMember, SpendingGroup} from "@common/api/types";
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response, next:  NextFunction) => {
@@ -14,6 +14,14 @@ router.get("/", async (req: Request, res: Response, next:  NextFunction) => {
 
 router.get("/:group_id", async (req: Request, res: Response, next:  NextFunction) => {
   crud.getSpendingGroupById(req.params.group_id).then((groups) => {
+    res.status(200).json(groups);
+  }).catch((error) => {
+    next(error);
+  })
+});
+
+router.post("/:group_id/members/", async (req: Request, res: Response, next:  NextFunction) => {
+  crud.addMemberToSpendingGroup(req.params.group_id as string, req.body as GroupMember).then((groups) => {
     res.status(200).json(groups);
   }).catch((error) => {
     next(error);

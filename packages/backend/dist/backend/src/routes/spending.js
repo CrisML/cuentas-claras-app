@@ -40,6 +40,13 @@ router.get("/:group_id", async (req, res, next) => {
         next(error);
     });
 });
+router.post("/:group_id/members/", async (req, res, next) => {
+    crud.addMemberToSpendingGroup(req.params.group_id, req.body).then((groups) => {
+        res.status(200).json(groups);
+    }).catch((error) => {
+        next(error);
+    });
+});
 router.post("/", async (req, res, next) => {
     const newSpendingGroup = req.body;
     crud.saveSpendingGroup(newSpendingGroup).then((result) => {

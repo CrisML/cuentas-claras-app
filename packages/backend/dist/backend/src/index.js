@@ -8,6 +8,7 @@ const login_1 = require("./auth/login");
 const spending_1 = __importDefault(require("./routes/spending"));
 const home_1 = __importDefault(require("./routes/home"));
 const cors_1 = __importDefault(require("cors"));
+const signup_1 = require("./auth/signup");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
 // Config
@@ -19,6 +20,7 @@ app.use((0, cors_1.default)({
 app.use(express_1.default.json());
 // Routes
 app.post('/api/login', login_1.login);
+app.post('/api/signup', signup_1.signup);
 app.use('/api/groups/spendings', spending_1.default);
 app.use('/', home_1.default);
 // Errors

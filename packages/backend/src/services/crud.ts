@@ -1,10 +1,9 @@
-import { LoginRequest, SpendingGroup} from "@common/api/types";
+import { GroupMember, LoginRequest, SpendingGroup} from "@common/api/types";
 import {spendingGroupsCollection, usersCollection} from "../services/database"
-import { ObjectId } from 'mongodb';
+import { ObjectId, Collection} from 'mongodb';
 
 export const getSpendingGroupById = async (group_id: string) => {
-    const filter = { _id: new ObjectId(group_id) };
-    return await spendingGroupsCollection.findOne<SpendingGroup>(filter);
+    return await spendingGroupsCollection.findOne<SpendingGroup>({ _id: new ObjectId(group_id) });
 }
 
 export const getSpendingGroups = async (limit: number) => {
@@ -13,6 +12,15 @@ export const getSpendingGroups = async (limit: number) => {
 
 export const saveSpendingGroup = async (newSpendingGroup: SpendingGroup) => {
     return await spendingGroupsCollection.insertOne(newSpendingGroup);
+}
+
+const addMember = async (group_id: string, member: GroupMember, groupCollection: Collection) => {
+     return await groupCollection.updateOne({_id: new ObjectId(group_id)}, {$push: {members: member} as any})
+}
+
+export const addMemberToSpendingGroup = async (group_id: string, member: GroupMember) => {
+    await addMember(group_id, member, spendingGroupsCollection);
+    return await getSpendingGroupById(group_id);
 }
 
 export const getUser = async (userInfo: LoginRequest) => {
