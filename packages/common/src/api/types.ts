@@ -27,7 +27,7 @@ export interface SignupResponse {
 
 export interface SpendingGroup {
     name: string;
-    members: ObjectId[];
+    members: GroupMember[];
 }
 
 export interface GroupMember {

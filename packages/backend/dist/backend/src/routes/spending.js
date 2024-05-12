@@ -34,6 +34,7 @@ router.get("/", async (req, res, next) => {
     });
 });
 router.get("/:group_id", async (req, res, next) => {
+    console.log('AQUIIIIIIII');
     crud.getSpendingGroupById(req.params.group_id).then((groups) => {
         res.status(200).json(groups);
     }).catch((error) => {
