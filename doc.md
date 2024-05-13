@@ -17,8 +17,21 @@ POST /api/groups/:id_del_grupo/members
 
 ```
 {
-    "_id": "id del usuario",
+    "user_id": "id del usuario",
     "name": "nombre de usuario"
+}
+
+```
+
+### Agregar gasto al grupo:
+
+POST /api/groups/:id_del_grupo/spendings
+
+```
+{
+    "user_id": "663d3d56be4234a687765d9f",
+    "description": "comida",
+    "amount": 2500
 }
 
 ```

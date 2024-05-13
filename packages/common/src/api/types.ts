@@ -1,5 +1,3 @@
-import {ObjectId} from "mongodb"
-
 export interface LoginRequest {
     email: string;
     password: string;
@@ -28,10 +26,16 @@ export interface SignupResponse {
 export interface Group {
     name: string;
     type: string;
-    members: ObjectId[];
+    members: string[];
 }
 
 export interface Member {
-    _id: ObjectId;
+    user_id: string;
     name: string;
+}
+
+export interface Spending {
+    user_id: string;
+    description: string;
+    amount: number;
 }
