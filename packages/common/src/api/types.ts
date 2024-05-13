@@ -25,12 +25,13 @@ export interface SignupResponse {
     message?: string;
 }
 
-export interface SpendingGroup {
+export interface Group {
     name: string;
+    type: string;
     members: ObjectId[];
 }
 
-export interface GroupMember {
+export interface Member {
     _id: ObjectId;
     name: string;
 }

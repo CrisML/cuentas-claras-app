@@ -1,18 +1,19 @@
-### Crear grupo de gastos
+### Crear grupo
 
-POST /api/groups/spendings/
+POST /api/groups/
 
 
 ```
 {
-    "name": "nombre de grupo"
+    "name": "nombre de grupo",
+    "type": "spendings or savings"
 }
 
 ```
 
 ### Agregar miembro al grupo de gastos:
 
-POST /api/groups/spendings/:id_del_grupo/members
+POST /api/groups/:id_del_grupo/members
 
 ```
 {
@@ -24,4 +25,4 @@ POST /api/groups/spendings/:id_del_grupo/members
 
 ### Info del grupo:
 
-GET /api/groups/spendings/:id_del_grupo
+GET /api/groups/:id_del_grupo

@@ -18,7 +18,7 @@ export const signup = async (req: Request, res: Response) => {
         res.status(400).json({ message: 'Email and password are required' });
     }
     else {
-        const result = await crud.SaveUser(userInfo);
+        const result = await crud.createUser(userInfo);
         if (!result){
             res.status(500).json({ message: 'Error creating user' });
         }
