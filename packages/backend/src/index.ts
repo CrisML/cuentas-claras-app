@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { login } from './auth/login';
-import spendings from './routes/groups';
 import home from './routes/home';
 import cors from 'cors';
 import {signup} from "./auth/signup";
-import groups from './routes/groups';
+import groupsRouter from './routes/groups';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,8 +21,7 @@ app.use(express.json());
 app.post('/api/login', login);
 app.post('/api/signup', signup);
 // app.use('/api/groups/savings', spendings);
-app.use('/api/groups', groups);
-app.use('/api/groups/spendings', spendings);
+app.use('/api/groups', groupsRouter);
 app.use('/', home);
 
 // Errors
