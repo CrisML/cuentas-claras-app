@@ -2,6 +2,9 @@
 import React, {useState, useEffect} from "react";
 import {config} from "@/utils/config";
 import {GroupMember, SpendingGroup} from "@common/api/types";
+import GroupLayout from "@/app/group/GroupLayout";
+import GroupHeader from "@/app/group/GroupHeader";
+import MembersList from "@/app/group/MemberList";
 
 function groupPage({ params }: { params: { id: string } }): React.ReactElement {
     const [groupInfo, setGroupInfo] = React.useState<SpendingGroup | null>(null);
@@ -38,28 +41,20 @@ function groupPage({ params }: { params: { id: string } }): React.ReactElement {
 
 
     return (
-        <div className="p-4">
-            <h1 className="text-xl font-bold">Group Page with ID: {params.id}</h1>
+        <GroupLayout>
             {loading ? (
                 <div className="text-center mt-5">Cargando...</div>
             ) : error ? (
                 <div className="text-red-500">{error}</div>
             ) : groupInfo ? (
-                <div>
-                    <h2 className="text-lg font-semibold mt-3">Nombre del Grupo: {groupInfo.name}</h2>
-                    <div className="mt-2">
-                        <h3 className="text-md font-semibold">Miembros del Grupo:</h3>
-                        <ul>
-                            {groupInfo.members?.map((member: GroupMember) => (
-                                <li key={member._id.toString()} className="mt-1">{member.name}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+                <>
+                    <GroupHeader groupName={groupInfo.name}/>
+                    <MembersList members={groupInfo.members} groupId={params.id} />
+                </>
             ) : (
                 <div>No se encontró información del grupo.</div>
             )}
-        </div>
+        </GroupLayout>
     );
 }
 

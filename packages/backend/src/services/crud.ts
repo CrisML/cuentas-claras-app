@@ -27,6 +27,10 @@ export const getUser = async (userInfo: LoginRequest) => {
     return await usersCollection.findOne<LoginRequest>({email: userInfo.email, password: userInfo.password});
 }
 
+export const getUsers = async () => {
+    return await usersCollection.find().toArray();
+}
+
 export const SaveUser = async (userInfo: LoginRequest) => {
     return await usersCollection.insertOne(userInfo);
 }

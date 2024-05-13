@@ -31,6 +31,6 @@ export interface SpendingGroup {
 }
 
 export interface GroupMember {
-    _id: ObjectId;
+    _id: string;
     name: string;
 }
