@@ -5,7 +5,7 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin, onSignUp }: LoginProps) {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     return (
@@ -14,14 +14,14 @@ export default function Login({ onLogin, onSignUp }: LoginProps) {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    onLogin(email, password);
+                    onLogin(username, password);
                 }}
                 className="flex flex-col space-y-3"
             >
                 <input
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     placeholder="Usuario"
                     className="p-2 border rounded"
                 />

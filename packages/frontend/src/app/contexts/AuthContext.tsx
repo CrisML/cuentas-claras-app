@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { config } from '@/utils/config';
-import {LoginRequest, LoginResponse} from "@common/api/types";
+import {LoginRequest, LoginResponse, SignupRequest} from "@common/api/types";
 
 interface AuthState {
     isLoggedIn: boolean;
@@ -35,13 +35,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const setLoginSuccess = (isLoggedIn: boolean) => setState(prevState => ({ ...prevState, isLoggedIn, isLoginPending: false }));
     const setLoginError = (loginError: Error | null) => setState(prevState => ({ ...prevState, loginError, isLoginPending: false }));
 
-    const login = async (email: string, password: string) => {
+    const login = async (username: string, password: string) => {
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
         try {
-            const loginRequest: LoginRequest = { email, password };
+            const loginRequest: LoginRequest = { username: username, password };
             const response = await fetch(`${config.apiUrl}/api/login`, {
                 method: 'POST',
                 headers: {
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setLoginSuccess(true);
             localStorage.setItem('token', data.token as string);
         } catch (error) {
-            setLoginError(new Error('Invalid email and password'));
+            setLoginError(new Error('Invalid username and password'));
         }
     };
 
@@ -67,9 +67,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setState({...initialState});
     };
 
-    const handleSignUp = async (email: string, password: string) => {
+    const handleSignUp = async (username: string, password: string) => {
         try {
-            const signUpRequest = { email, password };
+            const signUpRequest: SignupRequest = { username: username, password };
             const response = await fetch(`${config.apiUrl}/api/signup`, {
                 method: 'POST',
                 headers: {
