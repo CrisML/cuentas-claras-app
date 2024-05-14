@@ -55,7 +55,7 @@ const MembersList = ({ members, groupId, updateMembers }: MembersListProps) => {
         <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Miembros:</h3>
             <ul className="list-disc list-inside bg-white rounded-lg p-3 shadow">
-                {members.map(member => (
+                {members?.map(member => (
                     <li key={member.user_id} className="py-1 border-b last:border-b-0">{member.username}</li>
                 ))}
             </ul>
