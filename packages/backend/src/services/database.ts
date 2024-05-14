@@ -11,5 +11,5 @@ const uri =
 const client = new mongoDB.MongoClient(uri);
 client.connect();
 const database = client.db("cuentasclaras")
-export const spendingGroupsCollection: mongoDB.Collection = database.collection("spendings");
+export const groupsCollection: mongoDB.Collection = database.collection("groups");
 export const usersCollection: mongoDB.Collection = database.collection("users");

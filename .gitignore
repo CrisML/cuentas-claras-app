@@ -1,4 +1,4 @@
 **/node_modules/**
 .idea
-packages/backend/dist
-packages/common/dist
+/packages/backend/dist
+/packages/common/dist
