@@ -6,9 +6,10 @@ import {config} from "@/utils/config"; // Asumiendo que tienes un componente par
 interface MembersListProps {
     members: Member[];
     groupId: string;
+    updateMembers: () => void;
 }
 
-const MembersList = ({ members, groupId }: MembersListProps) => {
+const MembersList = ({ members, groupId, updateMembers }: MembersListProps) => {
     const [isModalOpen, setModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -43,7 +44,11 @@ const MembersList = ({ members, groupId }: MembersListProps) => {
             alert('Error al agregar miembro');
             return;
         }
-        void addNewMemberQuery(groupMember);
+        addNewMemberQuery(groupMember)
+            .then(() => updateMembers())
+            .finally(() => {
+            setModalOpen(false);
+        });
     };
 
     return (

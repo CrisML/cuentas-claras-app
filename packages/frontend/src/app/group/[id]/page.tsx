@@ -49,7 +49,7 @@ function groupPage({ params }: { params: { id: string } }): React.ReactElement {
             ) : groupInfo ? (
                 <>
                     <GroupHeader groupName={groupInfo.name}/>
-                    <MembersList members={groupInfo.members} groupId={params.id} />
+                    <MembersList members={groupInfo.members} groupId={params.id} updateMembers={() => handleGetGroupInfo()}/>
                 </>
             ) : (
                 <div>No se encontró información del grupo.</div>

@@ -16,7 +16,7 @@ const MemberAddModal = ({ groupId, onClose, onAdd }: MemberAddModalProps) => {
 
     useEffect(() => {
         void getUsersNotInGroup();
-    }, []);
+    }, [onAdd]);
 
     const getUsersNotInGroup = async () => {
         try {
