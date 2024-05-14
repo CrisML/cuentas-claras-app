@@ -26,7 +26,7 @@ export interface SignupResponse {
 export interface Group {
     name: string;
     type: string;
-    members: string[];
+    members: Member[];
 }
 
 export interface Member {

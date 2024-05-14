@@ -27,7 +27,7 @@ export default function GroupCreationScreen(): React.ReactElement {
             console.log('Empezando creacion de grupo front')
             //let token = localStorage.getItem("token") as string
             const createRequest: CreateGroupRequest = {/*token,*/ name: groupName };
-            const response = await fetch(`${config.apiUrl}/api/groups/spendings`, {
+            const response = await fetch(`${config.apiUrl}/api/groups`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

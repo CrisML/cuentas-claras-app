@@ -13,8 +13,8 @@ router.get("/", async (req: Request, res: Response, next:  NextFunction) => {
 });
 
 router.get("/:group_id", async (req: Request, res: Response, next:  NextFunction) => {
-  crud.getGroupById(req.params.group_id).then((groups) => {
-    res.status(200).json(groups);
+  crud.getGroupById(req.params.group_id).then((group) => {
+    res.status(200).json(group);
   }).catch((error) => {
     next(error);
   })
@@ -44,5 +44,13 @@ router.post("/",async (req: Request, res: Response, next: NextFunction) => {
       next(error);
     })
 })
+
+router.get("/:group_id/new-users", async (req: Request, res: Response, next:  NextFunction) => {
+    crud.getUsersNotInGroup(req.params.group_id).then((users) => {
+        res.status(200).json(users);
+    }).catch((error) => {
+        next(error);
+    })
+});
 
 export default router;
