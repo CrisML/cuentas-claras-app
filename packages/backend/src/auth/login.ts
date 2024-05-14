@@ -7,11 +7,11 @@ export const SECRET_KEY = 'your_secret_key_here'; // Asegúrate de mantener esta
 export const login = async (req: Request, res: Response) => {
     const userInfo = req.body as LoginRequest;
 
-    console.log('Se recibe email: ', userInfo.email, 'password:', userInfo.password);
+    console.log('Se recibe username: ', userInfo.username, 'password:', userInfo.password);
     // Verificar si las credenciales son correctas
     const usuarioEncontrado = await crud.getUser(userInfo);
     if (usuarioEncontrado) {
-        const username = userInfo.email;
+        const username = userInfo.username;
         const token = jwt.sign({username}, SECRET_KEY, { expiresIn: '1h' });
         const response: LoginResponse = {token}
         res.json(response)

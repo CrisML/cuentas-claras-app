@@ -1,5 +1,5 @@
 export interface LoginRequest {
-    email: string;
+    username: string;
     password: string;
 }
 
@@ -14,7 +14,7 @@ export interface LoginResponse {
 }
 
 export interface SignupRequest {
-    email: string;
+    username: string;
     password: string;
 }
 
@@ -31,7 +31,6 @@ export interface Group {
 
 export interface Member {
     user_id: string;
-    name: string;
 }
 
 export interface Spending {
