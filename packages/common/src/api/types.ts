@@ -31,6 +31,7 @@ export interface Group {
 
 export interface Member {
     user_id: string;
+    username: string;
 }
 
 export interface Spending {
