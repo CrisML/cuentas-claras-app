@@ -1,19 +1,19 @@
 "use client";
 import React, {useState, useEffect} from "react";
 import {config} from "@/utils/config";
-import {GroupMember, SpendingGroup} from "@common/api/types";
+import {Group} from "@common/api/types";
 import GroupLayout from "@/app/group/GroupLayout";
 import GroupHeader from "@/app/group/GroupHeader";
 import MembersList from "@/app/group/MemberList";
 
 function groupPage({ params }: { params: { id: string } }): React.ReactElement {
-    const [groupInfo, setGroupInfo] = React.useState<SpendingGroup | null>(null);
+    const [groupInfo, setGroupInfo] = React.useState<Group | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const handleGetGroupInfo = async () => {
         try {
             console.log('Obteniendo la información del grupo con id: ' + params.id)
-            const url = `${config.apiUrl}/api/groups/spendings/${params.id}`;
+            const url = `${config.apiUrl}/api/groups/${params.id}`;
             // const queryParam = new URLSearchParams({group_id: params.id}).toString();
             const response = await fetch(url, {
                 method: 'GET',

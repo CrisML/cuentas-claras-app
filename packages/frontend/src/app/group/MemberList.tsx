@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { GroupMember } from "@common/api/types";
+import React, {useEffect, useState} from 'react';
+import {Member} from "@common/api/types";
 import MemberAddModal from './MemberAddModal';
 import {config} from "@/utils/config"; // Asumiendo que tienes un componente para el modal
 
 interface MembersListProps {
-    members: GroupMember[];
+    members: Member[];
     groupId: string;
 }
 
@@ -15,11 +15,10 @@ const MembersList = ({ members, groupId }: MembersListProps) => {
         setModalOpen(!isModalOpen);
     };
 
-    const addNewMemberQuery = async (groupMember: GroupMember) => {
+    const addNewMemberQuery = async (groupMember: Member) => {
         try {
             console.log(`Agregando un nuevo miembro al grupo con id: ${groupId}, miembro: ${groupMember}`);
-            const url = `${config.apiUrl}/api/groups/spendings/${groupId}/members`;
-            // const queryParam = new URLSearchParams({group_id: params.id}).toString();
+            const url = `${config.apiUrl}/api/groups/${groupId}/members`;
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -39,12 +38,12 @@ const MembersList = ({ members, groupId }: MembersListProps) => {
         }
     };
 
-    const addNewMember = (groupMember: GroupMember) => {
-        if (groupMember.name === '') {
-            alert('El nombre del miembro no puede estar vacío');
+    const addNewMember = (groupMember: Member) => {
+        if (groupMember === null) {
+            alert('Error al agregar miembro');
             return;
         }
-
+        void addNewMemberQuery(groupMember);
     };
 
     return (
@@ -52,13 +51,13 @@ const MembersList = ({ members, groupId }: MembersListProps) => {
             <h3 className="text-lg font-semibold mb-2">Miembros:</h3>
             <ul className="list-disc list-inside bg-white rounded-lg p-3 shadow">
                 {members.map(member => (
-                    <li key={member._id.toString()} className="py-1 border-b last:border-b-0">{member.name}</li>
+                    <li key={member.user_id} className="py-1 border-b last:border-b-0">{member.username}</li>
                 ))}
             </ul>
             <button onClick={toggleModal} className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Añadir Miembro
             </button>
-            {isModalOpen && <MemberAddModal onAdd={addNewMember} onClose={toggleModal} />}
+            {isModalOpen && <MemberAddModal groupId={groupId} onAdd={addNewMember} onClose={toggleModal} />}
         </div>
     );
 };

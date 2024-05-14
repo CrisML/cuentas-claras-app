@@ -32,3 +32,20 @@ export const createUser = async (userInfo: LoginRequest) => {
     return await usersCollection.insertOne(userInfo);
 }
 
+export const getUsersNotInGroup = async (group_id: string) => {
+    // Devuelve un array de usuarios que no están en el grupo
+    // Para ello se realiza una query que busca todos los usuarios que no estén en el grupo
+    // Existe una collection users que tiene los atributos user_id y username
+    // y una collection groups que tiene los atributos group_id, name y members. Dentro de members hay un array de objetos con los atributos user_id y username
+    // Se debe devolver un array de objetos con los atributos user_id y username de los usuarios que no están en el grupo
+
+    const group = await getGroupById(group_id);
+    if (!group) {
+        return [];
+    }
+    const users = await usersCollection.find().toArray();
+    const usersNotInGroup = users.filter(user => !group.members.some(member => member.user_id === user._id.toString()))
+        .map(user => ({user_id: user._id.toString(), username: user.username}));
+
+    return usersNotInGroup;
+}

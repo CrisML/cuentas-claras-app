@@ -1,34 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
-import {GroupMember} from "@common/api/types";
 import {config} from "@/utils/config";
 import {TextField} from "@mui/material";
+import {Member} from "@common/api/types";
 
 interface MemberAddModalProps {
+    groupId: string;
     onClose: () => void;
-    onAdd: (member: GroupMember) => void;
+    onAdd: (member: Member) => void;
 }
 
-const MemberAddModal = ({ onClose, onAdd }: MemberAddModalProps) => {
-    const [name, setName] = useState('');
-    const [options, setOptions] = useState<GroupMember[]>([]);
+const MemberAddModal = ({ groupId, onClose, onAdd }: MemberAddModalProps) => {
+    const [users, setUsers] = useState<Member[]>([]);
+    const [selectedUser, setSelectedUser] = useState<Member | null>(null);
 
     useEffect(() => {
-        fetchUsers().then(data => setOptions(data));
+        void getUsersNotInGroup();
     }, []);
 
-    const fetchUsers = async (): Promise<GroupMember[]> => {
-        // Suponiendo que la URL y la configuración sean correctas para tu backend
-        const response = await fetch(`${config.apiUrl}/api/users`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+    const getUsersNotInGroup = async () => {
+        try {
+            const url = `${config.apiUrl}/api/groups/${groupId}/new-users`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('No se pudo obtener la lista de miembros');
+            }
+            const data = await response.json();
+            setUsers(data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error al obtener la lista de miembros');
         }
-        return response.json();
-    };
-
+    }
     return (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" id="my-modal">
             <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -36,10 +39,10 @@ const MemberAddModal = ({ onClose, onAdd }: MemberAddModalProps) => {
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Añadir Nuevo Miembro</h3>
                     <div className="mt-2 px-7 py-3">
                         <Autocomplete
-                            options={options}
-                            getOptionLabel={(option) => option.name}
+                            options={users}
+                            getOptionLabel={(option) => option.username}
                             onChange={(event, newValue) => {
-                                setName(newValue?.name || '');
+                                setSelectedUser(newValue);
                             }}
                             renderInput={(params) => (
                                 <TextField {...params} label="Buscar Miembro" variant="outlined" fullWidth />
@@ -47,7 +50,7 @@ const MemberAddModal = ({ onClose, onAdd }: MemberAddModalProps) => {
                         />
                     </div>
                     <div className="items-center px-4 py-3">
-                        <button onClick={() => onAdd({ _id: '', name })}
+                        <button onClick={() => onAdd(selectedUser as Member)}
                                 className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             Añadir
                         </button>
