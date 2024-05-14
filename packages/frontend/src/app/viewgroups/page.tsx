@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import NavbarItem from "../navbar-item";
 import { config } from "@/utils/config";
 import { useAuth } from "../contexts/AuthContext";
+import { useRouter} from "next/navigation";
 
 interface Group {
   _id: string;
@@ -12,7 +13,7 @@ interface Group {
 export default function GroupCreationScreen(): React.ReactElement {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   const { state, login, logout } = useAuth();
 
   const navbar: NavbarItem[] = [
@@ -25,7 +26,7 @@ export default function GroupCreationScreen(): React.ReactElement {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await fetch(`${config.apiUrl}/api/groups/spendings`);
+        const response = await fetch(`${config.apiUrl}/api/groups`);
         if (!response.ok) {
           throw new Error("Fallo el get de los grupos");
         }
@@ -47,6 +48,10 @@ export default function GroupCreationScreen(): React.ReactElement {
     fetchGroups();
   }, []);
 
+  const handleOnClick = (group: Group) => {
+    router.push("/group/" + group._id);
+  }
+
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -64,9 +69,12 @@ export default function GroupCreationScreen(): React.ReactElement {
       </nav>
 
       <h2 className="text-3xl font-bold mt-4">Grupos</h2>
-      <ul>
+      <ul className="space-y-2 w-full max-w-md">
         {groups.map((group) => (
-          <li key={group._id}>{group.name}</li>
+            <li key={group._id} onClick={() => handleOnClick(group)}
+                className="cursor-pointer bg-white shadow-lg rounded-lg p-4 hover:bg-gray-100">
+              {group.name}
+            </li>
         ))}
       </ul>
     </div>
