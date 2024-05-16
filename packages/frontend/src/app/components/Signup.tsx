@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
 interface SignupProps {
-    onSignUp: (email: string, password: string) => void;
+    onSignUp: (email: string, password: string, spendingLimit: number) => void;
     toggleSignUp: () => void;
 }
 
 export default function Signup({ onSignUp, toggleSignUp }: SignupProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [spendingLimit, setSpendingLimit] = useState(0);
 
     return (
         <div className="flex flex-col items-center pt-10 min-h-screen">
@@ -15,7 +16,7 @@ export default function Signup({ onSignUp, toggleSignUp }: SignupProps) {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    onSignUp(email, password);
+                    onSignUp(email, password, spendingLimit);
                 }}
                 className="flex flex-col space-y-3"
             >
@@ -31,6 +32,13 @@ export default function Signup({ onSignUp, toggleSignUp }: SignupProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Contraseña"
+                    className="p-2 border rounded"
+                />
+                <input
+                    type="number"
+                    value={spendingLimit}
+                    onChange={(e) => setSpendingLimit(Number(e.target.value))}
+                    placeholder="Limite de gastos"
                     className="p-2 border rounded"
                 />
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">

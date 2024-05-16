@@ -13,6 +13,7 @@ export interface CreateGroupRequest {
 
 export interface LoginResponse {
     token?: string;
+    user_id?: string; 
     message?: string;
 }
 
@@ -26,6 +27,7 @@ export interface SignupRequest {
 
 export interface SignupResponse {
     token?: string;
+    user_id?: string; 
     message?: string;
 }
 

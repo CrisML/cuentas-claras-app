@@ -22,9 +22,10 @@ export const signup = async (req: Request, res: Response) => {
         if (!result){
             res.status(500).json({ message: 'Error creating user' });
         }
-        const payload = {"username": userInfo.username, "user_id": result.insertedId.toString()};
+        const user_id = result.insertedId.toString();
+        const payload = {"username": userInfo.username, "user_id": user_id};
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
-        const response: SignupResponse = {token, message: 'User created'}
+        const response: SignupResponse = {token,user_id, message: 'User created'}
         res.status(201).json(response);
     }
 };

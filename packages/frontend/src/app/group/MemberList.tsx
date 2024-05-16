@@ -25,6 +25,7 @@ const MembersList = ({ members, spendings, groupId, updateMembers }: MembersList
 
     const addNewMemberQuery = async (groupMember: Member) => {
         try {
+            
             const url = `${config.apiUrl}/api/groups/${groupId}/members`;
             const response = await fetch(url, {
                 method: 'POST',
@@ -58,6 +59,7 @@ const MembersList = ({ members, spendings, groupId, updateMembers }: MembersList
 
     const addNewSpendingQuery = async (spending: { description: string; amount: number }) => {
         try {
+            const user_id = localStorage.getItem("user_id") as string;
             const url = `${config.apiUrl}/api/groups/${groupId}/spendings`;
             const response = await fetch(url, {
                 method: 'POST',
@@ -65,7 +67,7 @@ const MembersList = ({ members, spendings, groupId, updateMembers }: MembersList
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    user_id: "663d3d56be4234a687765d9f", // Id de ejemplo, solucionar por el real, cambiando el back
+                    user_id: user_id, // Id de ejemplo, solucionar por el real, cambiando el back
                     description: spending.description,
                     amount: spending.amount
                 })
