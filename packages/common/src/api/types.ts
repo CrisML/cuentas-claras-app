@@ -1,5 +1,8 @@
+import { ObjectId} from 'mongodb';
+
 export interface LoginRequest {
-    username: string;
+    _id: ObjectId;
+    email: string;
     password: string;
 }
 
