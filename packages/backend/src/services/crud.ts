@@ -25,7 +25,7 @@ export const createSpending = async (group_id: string, spending: Spending) => {
 }
 
 export const getUser = async (userInfo: LoginRequest) => {
-    return await usersCollection.findOne<LoginRequest>({username: userInfo.email, password: userInfo.password});
+    return await usersCollection.findOne<LoginRequest>({username: userInfo.username, password: userInfo.password});
 }
 
 export const createUser = async (userInfo: LoginRequest) => {
