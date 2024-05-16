@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {LoginRequest, SignupResponse} from "@common/api/types";
+import {LoginRequest, SignupRequest, SignupResponse} from "@common/api/types";
 import * as crud from "../services/crud"
 import {SECRET_KEY} from "./login";
 
 export const signup = async (req: Request, res: Response) => {
-    const userInfo = req.body as LoginRequest;
+    const userInfo = req.body as SignupRequest;
     console.log('Se recibe email: ', userInfo.username, 'password:', userInfo.password);
     // Verificar si no existe un usuario con el mismo email
     // // Imprimo todos los usuarios
     // const usuarios = await collections.users?.find({}).toArray();
     // console.log('Usuarios:', usuarios)
-    const usuarioEncontrado = await crud.getUser(userInfo);
+    const usuarioEncontrado = await crud.getUserByUsername(userInfo);
     if (usuarioEncontrado) {
         res.status(400).json({ message: 'User already exists' });
     } else if (userInfo.username === '' || userInfo.password === '') {

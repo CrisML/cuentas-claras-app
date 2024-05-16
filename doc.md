@@ -1,3 +1,28 @@
+### Registrarse
+
+POST /api/login/
+
+```
+{
+    "username": "alexis",
+    "password": "alexis",
+    "name": "Alexis name",
+    "spending_limit": 10000
+}
+```
+
+### Iniciar sesion
+
+POST /api/signup/
+
+```
+{
+    "username": "alexis",
+    "password": "alexis"
+}
+
+```
+
 ### Crear grupo
 
 POST /api/groups/

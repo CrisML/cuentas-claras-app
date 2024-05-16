@@ -1,4 +1,4 @@
-import { Member, LoginRequest, Group, Spending} from "@common/api/types";
+import { Member, LoginRequest, Group, Spending, SignupRequest} from "@common/api/types";
 import {groupsCollection, usersCollection} from "../services/database"
 import { ObjectId} from 'mongodb';
 
@@ -28,7 +28,11 @@ export const getUser = async (userInfo: LoginRequest) => {
     return await usersCollection.findOne<LoginRequest>({username: userInfo.username, password: userInfo.password});
 }
 
-export const createUser = async (userInfo: LoginRequest) => {
+export const getUserByUsername =async (userInfo: SignupRequest) => {
+    return await usersCollection.findOne({username: userInfo.username});
+}
+
+export const createUser = async (userInfo: SignupRequest) => {
     return await usersCollection.insertOne(userInfo);
 }
 

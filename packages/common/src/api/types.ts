@@ -19,6 +19,9 @@ export interface LoginResponse {
 export interface SignupRequest {
     username: string;
     password: string;
+    name: string;
+    spending_limit: number;
+
 }
 
 export interface SignupResponse {
