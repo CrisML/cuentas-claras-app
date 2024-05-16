@@ -29,10 +29,17 @@ export interface SignupResponse {
     message?: string;
 }
 
+export interface Spending {
+    user_id: string;
+    description: string;
+    amount: number;
+}
+
 export interface Group {
     name: string;
     type: string;
     members: Member[];
+    spendings: Spending[];
 }
 
 export interface Member {
