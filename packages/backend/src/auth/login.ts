@@ -11,8 +11,8 @@ export const login = async (req: Request, res: Response) => {
     // Verificar si las credenciales son correctas
     const usuarioEncontrado = await crud.getUser(userInfo);
     if (usuarioEncontrado) {
-        const username = userInfo.email;
-        const token = jwt.sign({username}, SECRET_KEY, { expiresIn: '1h' });
+        const payload = {"email": userInfo.email, "user_id": usuarioEncontrado._id.toString()};
+        const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
         const response: LoginResponse = {token}
         res.json(response)
     } else {
